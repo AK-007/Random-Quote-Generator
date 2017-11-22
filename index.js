@@ -1,5 +1,7 @@
 var url = "https://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=jsonp&lang=en&jsonp=?";
 var colour=["#ED6A5A","#5ca4a9","#ff5666","#0C0A3E","#F9564F","#55286F","#3BC14A","#DE6E35"];
+var Quote;
+var Author;
 function getQuote(a)
 {
 	     $(".quote-text").animate({opacity: 0}, 400,
@@ -10,7 +12,8 @@ function getQuote(a)
   		 if (a.quoteAuthor === '') {
            a.quoteAuthor = 'Unknown';
            }
-         
+         Quote=a.quoteText;
+         Author=a.quoteAuthor;
          $(".quote-author").animate({opacity: 0}, 400,
         function() {
           $(this).animate({opacity: 1}, 400);
@@ -35,4 +38,8 @@ $("#newquote").on('click', function(){
 	 $.ajaxSetup({cache : false});
 	 $.getJSON(url,getQuote,'jsonp');
 });
+$('.twitter').on('click', function() {
+      var tweetLink = 'http://twitter.com/home?status=' +encodeURIComponent('"' + Quote + '" ' + Author);
+      window.open(tweetLink,'_blank');
+  });
 });
